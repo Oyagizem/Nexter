@@ -14,6 +14,19 @@ $color-grey-dark-2: #6D5D4B;
 $font-primary: 'Nunito', sans-serif;
 $font-display: 'Josefin Sans', sans-serif;
 
+//RESPONSIVE BREAKPOINTS
+//$bp-largest: 75em; 1200px/16=75
+$bp-largest: 75em; 
+
+//$bp-large: 62.5em; 1000px/16=62.5
+$bp-large: 62.5em; 
+
+//$bp-medium: 50em; 800px/16=50
+$bp-medium: 50em; 
+
+//$bp-small: 36.5em; 600px/16=37.5
+$bp-small: 37.5em; 
+
 *,
 *::before,
 *::after {
@@ -24,7 +37,11 @@ $font-display: 'Josefin Sans', sans-serif;
 
 html {
     box-sizing: border-box;
-    font-size: 62,5%; 
+    font-size: 62.5%; 
+
+    @media only screen and (max-width: $bp-largest) {
+        font-size: 50%;
+    }
 }
 
 body {
@@ -42,9 +59,19 @@ body {
     /* 1140 / 8 = 142.5px yani aşağı yukarı 14rem*/
     grid-template-columns: [sidebar-start] 8rem [sidebar-end full-start] minmax(6rem, 1fr)[center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end];
 
-    & > * {
-        padding: 40px;
-        font-size: 3rem;
+    @media only screen and (max-width: $bp-large) {
+        //We add a new row at to top with 6rem.
+        grid-template-rows: 6rem 80vh min-content 40vw repeat(3, min-content);
+        //We erase first 2 columns in order to erase sidebar
+        grid-template-columns: [full-start] minmax(6rem, 1fr)[center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end];
+    }
+
+    @media only screen and (max-width: $bp-medium) {
+        //We add a new row at to top with 6rem.
+        /*And what we do know is to basically take 100vh and then subtrack the 6rem that we have for the sidebar. */
+        /*Eski hali grid-template-rows: 6rem calc(100vh - 6rem) min-content min-content 40vw repeat(3, min-content); idi.  Story de buton taştığı için yapmamız gereken grid-template-rows: 6rem calc(100vh - 6rem) min-content min-content min-content repeat(3, min-content); idi. Ama yaptığımız sadece fazlalık min-content leri silmek oldu.
+       Because --> The automatic placement already takes care of that. */
+        grid-template-rows: 6rem calc(100vh - 6rem);
     }
 }
 

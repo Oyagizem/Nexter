@@ -1,7 +1,48 @@
 .features {
-    background-color: $color-grey-light-2;
+    //background-color: $color-grey-light-2;
     grid-column: center-start / center-end;
 
+    margin: 15rem 0;
+
+    @supports (display:grid) {
+        display:grid;
+        //grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+        grid-gap: 6rem;
+        align-items: start;
+    }
+}
+
+.feature {
+
+    //Grid yoksa feature ları 3lü 3lü yerleştirmek için
+    float:left;
+    width: 33.3333%;
+    margin-bottom: 6rem;
+    
+/*CSS Grid and Flexbox ignores: float, display:inline-block, display:table-cell and vertical-align.*/
+
+    @supports (display:grid) {
+        //Yukarıdaki kod satırlarını resetliyoruz. Yani     width: 33.3333%; and margin-bottom: 6rem; kısmını. (float zaten ignore ediliyor.)
+        width:auto;
+        margin-bottom: 0;
+    }
+
     display:grid;
-    grid-template-columns: repeat (3, 1fr);
+    grid-template-columns: min-content 1fr;
+    grid-row-gap: 1.5rem;
+    grid-column-gap: 2.5rem;
+
+    &__icon {
+        fill: $color-primary;
+        width: 4.5rem;
+        height: 4.5rem;
+        // grid-row: 1 / -1; diyince değişikliği göremedik çünkü explicit grid in sonu demek. Grid explicit olmadığı için grid-row: 1 / span 2; diyoruz.
+        grid-row: 1 / span 2;
+        transform: translateY(-1rem);
+        }
+
+    &__text {
+        font-size: 1.7rem;
+    }
 }
